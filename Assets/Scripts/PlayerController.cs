@@ -68,16 +68,24 @@ public class PlayerController : MonoBehaviour
             Debug.Log(jet);
                                
         }
-        else if (Input.GetKey(KeyCode.LeftShift) && Physics2D.OverlapCircle(GroundCheck.position, GroundCheck.GetComponent<CircleCollider2D>().radius, GroundLayer)){
-            jetSmoke.Pause();
-            jetSmoke.Clear();
-            rb2d.velocity = new Vector2(moveInput * 1.5f*moveSpeed, rb2d.velocity.y);    
-        }
         else{
-            jetSmoke.Pause();
-            jetSmoke.Clear();
-            rb2d.velocity = new Vector2(moveInput * moveSpeed, rb2d.velocity.y);
+            if (Input.GetKey(KeyCode.DownArrow)){
+                anim.SetTrigger("Slide");
+            }
+            else if (Input.GetKey(KeyCode.LeftShift) && Physics2D.OverlapCircle(GroundCheck.position, GroundCheck.GetComponent<CircleCollider2D>().radius, GroundLayer)){
+                jetSmoke.Pause();
+                jetSmoke.Clear();
+                rb2d.velocity = new Vector2(moveInput * 1.5f*moveSpeed, rb2d.velocity.y); 
+                anim.ResetTrigger("Slide");    
+            }
+            else{
+                jetSmoke.Pause();
+                jetSmoke.Clear();
+                rb2d.velocity = new Vector2(moveInput * moveSpeed, rb2d.velocity.y);
+                anim.ResetTrigger("Slide"); 
+            }
         }
+        
         
     }
 
@@ -86,7 +94,7 @@ public class PlayerController : MonoBehaviour
         if (moveInput > 0)
         {
             if (Input.GetKey(KeyCode.LeftShift)){
-                anim.SetBool("Running", true);    
+                anim.SetBool("Running", true);  
             }
             else{
                 anim.SetBool("Running", false);
@@ -98,7 +106,7 @@ public class PlayerController : MonoBehaviour
         if (moveInput < 0)
         {
             if (Input.GetKey(KeyCode.LeftShift)){
-                anim.SetBool("Running", true);    
+                anim.SetBool("Running", true);     
             }
             else{
                 anim.SetBool("Running", false);
