@@ -12,9 +12,13 @@ public class PlayerController : MonoBehaviour
     int jumpsLeft;
     public Transform GroundCheck;
     public LayerMask GroundLayer;
+    public LayerMask WaterLayer;
+    public LayerMask LadderLayer;
 
     public int maxJet;
     int jet;
+    bool underwater = false;
+    bool climb = false;
 
     bool isGrounded;
 
@@ -24,6 +28,10 @@ public class PlayerController : MonoBehaviour
     Animator anim;
     ParticleSystem jetSmoke;
     float scaleX;
+    ContactFilter2D waterFilter = new ContactFilter2D();
+    ContactFilter2D ladderFilter = new ContactFilter2D();
+    Collider2D[] waterColliders = new Collider2D[16];
+    Collider2D[] ladderColliders = new Collider2D[16];
     // Start is called before the first frame update
     void Start()
     {
@@ -31,27 +39,47 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         jetSmoke = GetComponent<ParticleSystem>();
         scaleX = transform.localScale.x;
+
+        waterFilter.SetLayerMask(WaterLayer);
+        waterFilter.useLayerMask = true;
+        ladderFilter.SetLayerMask(LadderLayer);
+        ladderFilter.useLayerMask = true;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        anim.SetBool("Underwater", underwater);
+        anim.SetBool("Climb", climb);
         moveInput = Input.GetAxisRaw("Horizontal");
         jetInput = Input.GetAxisRaw("Vertical");
 
-        Jump();
-        
-        
-        //CheckIfGrounded();
-        //anim.SetBool("Jumping", !isGrounded); 
+        Jump(); 
         
     }
 
     private void FixedUpdate()
     {
         Move();
-        if(Physics2D.OverlapCircle(GroundCheck.position, GroundCheck.GetComponent<CircleCollider2D>().radius, GroundLayer)){
+        if(rb2d.OverlapCollider(waterFilter,waterColliders)>0){
               anim.SetBool("Jet", false);
+              underwater = true;
+              climb = false;
+        }
+        else if(rb2d.OverlapCollider(ladderFilter,ladderColliders)>0){
+            anim.SetBool("Jet", false);
+            climb = true;
+            underwater = false;
+        }
+        else if(Physics2D.OverlapCircle(GroundCheck.position, GroundCheck.GetComponent<CircleCollider2D>().radius, GroundLayer)){
+              anim.SetBool("Jet", false);
+              underwater = false;
+              climb = false;
+        }
+        else{
+            underwater = false;
+            climb = false;
         }
         
     }
@@ -59,13 +87,19 @@ public class PlayerController : MonoBehaviour
     public void Move()
     {
         Flip();
-        if (Input.GetKey(KeyCode.UpArrow) && jet !=0)
+        if(underwater){ 
+            rb2d.velocity = new Vector2(moveInput * moveSpeed*0.5f, jetInput * moveSpeed*0.3f);
+        }
+        else if(climb){ 
+            rb2d.velocity = new Vector2(rb2d.velocity.x, jetInput * moveSpeed*0.7f);
+        }
+        else if (Input.GetKey(KeyCode.UpArrow) && jet !=0)
         {
             anim.SetBool("Jet", true);
             jetSmoke.Play();
             rb2d.velocity = new Vector2(rb2d.velocity.x, jetInput* moveSpeed);
             jet--;
-            Debug.Log(jet);
+            //Debug.Log(jet);
                                
         }
         else{
@@ -129,7 +163,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             CheckIfGrounded();
-            if (jumpsLeft > 0)
+            if (jumpsLeft > 0||underwater)
             {
                 anim.SetTrigger("Jumping"); 
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
@@ -158,6 +192,12 @@ public class PlayerController : MonoBehaviour
     public void RefillJetpack()
     {
         jet = maxJet;
+    }
+
+    public void IsUnderwater()
+    {
+        anim.SetBool("Underwater", true); 
+        underwater = true;
     }
 
     

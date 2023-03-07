@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
+
+    public bool jet;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +23,9 @@ public class Pickup : MonoBehaviour
         PlayerController p = other.GetComponent<PlayerController >();
         if (p != null)
         {
-            p.RefillJetpack();
+            if(jet){
+                p.RefillJetpack();
+            }
             Destroy(gameObject);
 
         }
