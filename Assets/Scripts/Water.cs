@@ -16,15 +16,5 @@ public class Water : MonoBehaviour
         
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        PlayerController p = other.GetComponent<PlayerController >();
-        if (p != null)
-        {
-            p.IsUnderwater();
-        }
-        //Console.WriteLine("Hello!");
-        
-
-    }
+   
 }

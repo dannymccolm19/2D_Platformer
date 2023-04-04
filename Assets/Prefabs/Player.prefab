@@ -22,7 +22,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8424638170111412280
 Transform:
   m_ObjectHideFlags: 0
@@ -134,7 +134,10 @@ MonoBehaviour:
   WaterLayer:
     serializedVersion: 2
     m_Bits: 256
-  maxJet: 1000
+  LadderLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  maxJet: 200
 --- !u!70 &8424638170111412282
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

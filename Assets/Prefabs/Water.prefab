@@ -117,7 +117,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -132,11 +132,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.10616872, y: 0.32026428}
-      - {x: -1.5723367, y: 0.3355206}
+    - - {x: -0.10616872, y: 0.0846484}
+      - {x: -1.5867621, y: 0.14798959}
       - {x: -1.6090122, y: -0.6442888}
       - {x: 1.6019348, y: -0.67260003}
-      - {x: 1.5511024, y: 0.328443}
+      - {x: 1.5847619, y: 0.23227324}
 --- !u!114 &8661533247685582225
 MonoBehaviour:
   m_ObjectHideFlags: 0

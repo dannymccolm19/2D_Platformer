@@ -90,8 +90,14 @@ public class PlayerController : MonoBehaviour
         if(underwater){ 
             rb2d.velocity = new Vector2(moveInput * moveSpeed*0.5f, jetInput * moveSpeed*0.3f);
         }
+        else if(Physics2D.OverlapCircle(GroundCheck.position, GroundCheck.GetComponent<CircleCollider2D>().radius, WaterLayer)){
+              rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce*jetInput);
+        }
         else if(climb){ 
-            rb2d.velocity = new Vector2(rb2d.velocity.x, jetInput * moveSpeed*0.7f);
+            rb2d.velocity = new Vector2(moveInput * moveSpeed, jetInput * moveSpeed*0.7f);
+            if(!Physics2D.OverlapCircle(GroundCheck.position, GroundCheck.GetComponent<CircleCollider2D>().radius, GroundLayer)){
+                rb2d.velocity = new Vector2(0f, jetInput * moveSpeed*0.7f);
+            }
         }
         else if (Input.GetKey(KeyCode.UpArrow) && jet !=0)
         {
@@ -163,12 +169,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             CheckIfGrounded();
-            if (jumpsLeft > 0||underwater)
+            if (jumpsLeft > 0)
             {
                 anim.SetTrigger("Jumping"); 
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
                 jumpsLeft--;
             }
+            
                                
         }
         
@@ -194,11 +201,7 @@ public class PlayerController : MonoBehaviour
         jet = maxJet;
     }
 
-    public void IsUnderwater()
-    {
-        anim.SetBool("Underwater", true); 
-        underwater = true;
-    }
+    
 
     
 }
