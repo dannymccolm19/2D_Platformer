@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask GroundLayer;
     public LayerMask WaterLayer;
     public LayerMask LadderLayer;
+    public PauseMenu menu;
 
     public int maxJet;
     int jet;
@@ -52,6 +53,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            menu.ToggleMenu();
+        }
         anim.SetBool("Underwater", underwater);
         anim.SetBool("Climb", climb);
         moveInput = Input.GetAxisRaw("Horizontal");

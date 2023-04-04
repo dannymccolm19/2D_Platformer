@@ -126,6 +126,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   jumpForce: 18
+  hearts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  lives: 3
   jumpsAmount: 1
   GroundCheck: {fileID: 8424638171327321767}
   GroundLayer:
@@ -137,6 +142,7 @@ MonoBehaviour:
   LadderLayer:
     serializedVersion: 2
     m_Bits: 1024
+  menu: {fileID: 0}
   maxJet: 200
 --- !u!70 &8424638170111412282
 CapsuleCollider2D:
