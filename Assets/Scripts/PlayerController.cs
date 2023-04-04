@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed;
     public float jumpForce;
 
+    public GameObject[] hearts;
+    public int lives = 3;
     public int jumpsAmount;
     int jumpsLeft;
     public Transform GroundCheck;
@@ -199,6 +201,17 @@ public class PlayerController : MonoBehaviour
     public void RefillJetpack()
     {
         jet = maxJet;
+    }
+
+    public void ChangeHealth()
+    {
+        
+        lives -=1;
+        hearts[lives].SetActive(false);
+        if(lives == 0){
+            //reset game
+        }
+        
     }
 
     

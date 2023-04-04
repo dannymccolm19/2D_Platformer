@@ -44,7 +44,7 @@ public class EnemyController : MonoBehaviour
         if (p != null)
         {
             anim.SetTrigger("Attack");
-            //t.ChangeHealth(damage);
+            p.ChangeHealth();
         }
         
     }
