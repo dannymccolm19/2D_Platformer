@@ -7,8 +7,11 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
     public float jumpForce;
+    int score = 0;
 
     public GameObject[] hearts;
+    public GameObject[] pickups;
+    public GameObject[] jetpacks;
     public int lives = 3;
     public int jumpsAmount;
     int jumpsLeft;
@@ -213,9 +216,35 @@ public class PlayerController : MonoBehaviour
         lives -=1;
         hearts[lives].SetActive(false);
         if(lives == 0){
-            //reset game
+            Reset();
         }
         
+    }
+
+    public void Reset()
+    {
+        transform.position = new Vector3(-1.69f, -3.44f, 0);
+        lives = 3;
+        for (int i = 0; i<3; i++){
+            hearts[i].SetActive(true);
+            pickups[i].SetActive(true);
+            jetpacks[i].SetActive(true);  
+        }
+        jetpacks[3].SetActive(true);
+        jet = 0;      
+        score = 0;
+
+
+    }
+
+    public void IncreaseScore()
+    {  
+        score+=1;       
+    }
+
+    public int GetScore()
+    {  
+        return score;      
     }
 
     

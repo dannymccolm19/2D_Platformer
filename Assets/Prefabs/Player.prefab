@@ -130,6 +130,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  pickups:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   lives: 3
   jumpsAmount: 1
   GroundCheck: {fileID: 8424638171327321767}

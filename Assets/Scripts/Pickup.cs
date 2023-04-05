@@ -26,7 +26,10 @@ public class Pickup : MonoBehaviour
             if(jet){
                 p.RefillJetpack();
             }
-            Destroy(gameObject);
+            else{
+                p.IncreaseScore();
+            }
+            gameObject.SetActive(false);
 
         }
         //Console.WriteLine("Hello!");

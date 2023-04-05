@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3381211412051827613}
   - component: {fileID: 3381211412051827612}
   - component: {fileID: 3381211412051827608}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Electric
   m_TagString: Untagged
   m_Icon: {fileID: 0}
